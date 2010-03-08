@@ -1,0 +1,336 @@
+<?xml version="1.0"?>
+<syntax name="styling.less">
+	<zones>
+	  <include collection="variables"/>
+	  <include collection="mixin-def"/>
+		<zone name="itemize.group-start.comment.block.less">
+			<starts-with>/\*\s+@group\s</starts-with>
+			<ends-with>\*/</ends-with>
+			 <subzones>
+				<cut-off>\*/</cut-off>
+				<zone name="name">
+					<expression>.*</expression>
+				</zone>
+			</subzones>
+		</zone>
+		<zone name="itemize.group-end.comment.block.less">
+			<expression>/\*\s+@end\s+.*\*/</expression>
+		</zone>
+		<include collection="comments"/>
+		<zone name="at-rule.charset.less">
+			<starts-with>
+				<expression>((@)charset)</expression>
+				<capture number="1" name="keyword.control"/>
+				<capture number="2" name="punctuation.definition.keyword"/>
+			</starts-with>
+			<ends-with>
+				<expression>;|$</expression>
+				<capture number="0" name="punctuation.definition.end"/>
+			</ends-with>
+			<subzones>
+				<include collection="string-double"/>
+			</subzones>
+		</zone>
+		<zone name="at-rule.import.less">
+			<starts-with>
+				<expression>((@)import\b)\s*</expression>
+				<capture number="1" name="keyword.control"/>
+				<capture number="2" name="punctuation.definition.keyword"/>
+			</starts-with>
+			<ends-with>
+				<expression>\s*(;|$)</expression>
+				<capture number="1" name="punctuation.definition.end"/>
+			</ends-with>
+			<subzones>
+				<include collection="string-single"/>
+				<include collection="string-double"/>
+				<zone name="x-url-container">
+					<starts-with>
+						<expression>(url)(\()\s*</expression>
+						<capture number="1" name="support.function.url"/>
+						<capture number="2" name="delimiter.balanced.parenthesis.begin"/>
+					</starts-with>
+					<ends-with>
+						<expression>\s*(\))\s*</expression>
+						<capture number="1" name="delimiter.balanced.parenthesis.end"/>
+					</ends-with>
+					<subzones>
+						<include collection="string-single"/>
+						<include collection="string-double"/>
+						<zone name="x-text">
+							<expression>[^)]+</expression>
+						</zone>
+					</subzones>
+				</zone>
+				<zone name="x-text">
+					<expression>[^;$]+</expression>
+				</zone>
+			</subzones>
+		</zone>
+		<zone name="at-rule.media.less">
+			<starts-with>
+				<expression>((@)media)\s+([\w\s,]*)\s*</expression>
+				<capture number="1" name="keyword.control"/>
+				<capture number="2" name="punctuation.definition.keyword"/>
+				<capture number="3" name="support.constant"/>
+			</starts-with>
+			<ends-with>
+				<expression>(?&lt;=})</expression>
+				<!--capture number="1" name="keyword.control.at-rule.media.less"/-->
+			</ends-with>
+			<subzones>
+				<include collection="comments"/>
+				<zone name="block.less">
+					<starts-with>
+						<expression>\{</expression>
+						<capture number="0" name="punctuation.begin"/>
+					</starts-with>
+					<ends-with>
+						<expression>\}</expression>
+						<capture number="0" name="punctuation.end"/>
+					</ends-with>
+					<subzones>
+						<include syntax="$self"/>
+					</subzones>
+				</zone>
+			</subzones>
+		</zone>
+
+		<include collection="selector"/>
+		
+		<zone name="property-list.block.less">
+			<starts-with>
+				<expression>\{</expression>
+				<capture number="0" name="punctuation.begin"/>
+			</starts-with>
+			<ends-with>
+				<expression>\}</expression>
+				<capture number="0" name="punctuation.end"/>
+			</ends-with>
+			<subzones>
+				<include collection="comments"/>
+				<include collection="mixin"/>
+				<include collection="properties"/>
+				<include collection="variables"/>
+			</subzones>
+		</zone>
+	</zones>
+	<library>
+	
+	  <collection name="selector">
+	    <zone name="selector.less">
+	    	<starts-with>(?=[:.*#a-zA-Z@])</starts-with>
+	    	<ends-with>(?=\{)</ends-with>
+	    	<subzones>
+	    		<include collection="comments"/>
+	    	</subzones>
+	    </zone>
+	  </collection>
+	
+		<collection name="properties">
+		  <include collection="property-name"/>
+		  <include collection="property-value"/>
+		</collection>
+		<collection name="property-name">
+			<zone name="property-name">
+				<starts-with>
+					<expression>(?=[a-zA-Z-])</expression>
+				</starts-with>
+				<ends-with>
+					<expression>(?=\s*:)</expression>
+				</ends-with>
+			</zone>
+		</collection>
+		<collection name="property-value">
+			<zone name="property-value">
+				<starts-with>
+					<expression>(:)\s*</expression>
+					<capture number="1" name="punctuation.separator.key-value.less"/>
+				</starts-with>
+				<ends-with>
+					<expression>\s*(;|(?=\}))</expression>
+					<capture number="1" name="punctuation.terminator.rule.less"/>
+				</ends-with>
+				<subzones>
+					<include collection="comments"/>
+					<zone name="zconstant.nzumeric.less">
+						<expression>(-|\+)?\s*[0-9]+(\.[0-9]+)?</expression>
+					</zone>
+					<zone name="zkeyword.other.zunit.less">
+						<expression>(?&lt;=[\d])(px|pt|cm|mm|in|em|ex|pc)\b|%</expression>
+					</zone>
+					<zone name="zconstant.zother.color.rgb-value.less">
+						<expression>(#)([0-9a-fA-F]{3}|[0-9a-fA-F]{6})\b</expression>
+						<capture number="1" name="punctuation.definition.constant.less"/>
+					</zone>
+					<include collection="string-double"/>
+					<include collection="string-single"/>
+					
+					<include collection="variables"/>
+					<zone>
+						<starts-with>
+							<expression>(rgb|url|attr|counter|counters)\s*(\()</expression>
+							<capture number="1" name="support.function.misc.less"/>
+							<capture number="2" name="punctuation.section.function.less"/>
+						</starts-with>
+						<ends-with>
+							<expression>(\))</expression>
+							<capture number="1" name="punctuation.section.function.less"/>
+						</ends-with>
+						<subzones>
+							<include collection="string-single"/>
+							<include collection="string-double"/>
+							<zone name="constant.other.color.rgb-value.less">
+								<expression>(\b0*((1?[0-9]{1,2})|(2([0-4][0-9]|5[0-5])))\s*,\s*)(0*((1?[0-9]{1,2})|(2([0-4][0-9]|5[0-5])))\s*,\s*)(0*((1?[0-9]{1,2})|(2([0-4][0-9]|5[0-5])))\b)</expression>
+							</zone>
+							<zone name="constant.other.color.rgb-percentage.less">
+								<expression>\b([0-9]{1,2}|100)\s*%,\s*([0-9]{1,2}|100)\s*%,\s*([0-9]{1,2}|100)\s*%</expression>
+							</zone>
+							<zone name="variable.parameter.misc.less">
+								<expression>[^'") \t]+</expression>
+							</zone>
+						</subzones>
+					</zone>
+					<zone name="keyword.important.less">
+						<expression>\!\s*important</expression>
+					</zone>
+				</subzones>
+			</zone>
+		</collection>
+	
+		<collection name="comments">
+			<zone name="comment.line.less">
+				<starts-with>
+					<expression>//</expression>
+					<capture number="0" name="punctuation.begin"/>
+				</starts-with>
+				<ends-with>$</ends-with>
+			</zone>
+			<zone name="comment.block.less">
+				<starts-with>
+					<expression>/\*</expression>
+					<capture number="0" name="punctuation.begin"/>
+				</starts-with>
+				<ends-with>
+					<expression>\*/</expression>
+					<capture number="0" name="punctuation.end"/>
+				</ends-with>
+			</zone>
+		</collection>
+		
+		<collection name="string-double">
+			<zone name="string.quoted.double">
+				<starts-with>
+					<expression>"</expression>
+					<capture number="0" name="delimiter.balanced.quote.double.begin"/>
+				</starts-with>
+				<ends-with>
+					<expression>"</expression>
+					<capture number="0" name="delimiter.balanced.quote.double.end"/>
+				</ends-with>
+				<subzones>
+					<zone name="constant.character.escape.less">
+						<expression>\\.</expression>
+					</zone>
+				</subzones>
+			</zone>
+		</collection>
+		<collection name="string-single">
+			<zone name="string.quoted.single">
+				<starts-with>
+					<expression>'</expression>
+					<capture number="0" name="delimiter.balanced.quote.single.begin"/>
+				</starts-with>
+				<ends-with>
+					<expression>'</expression>
+					<capture number="0" name="delimiter.balanced.quote.single.end"/>
+				</ends-with>
+				<subzones>
+					<zone name="constant.character.escape.less">
+						<expression>\\.</expression>
+					</zone>
+				</subzones>
+			</zone>
+		</collection>
+		
+		<!-- LESS Only Stuff -->
+		<collection name="variables">
+		  <zone name="variable.definition.style.less">
+		      <starts-with>
+		      	<expression>(@)([a-zA-Z0-9_-]+(:))</expression>
+		      	<capture number="1" name="punctuation.definition.variable.sass"/>
+		      	<capture number="2" name="variable.property-name.sass"/>
+		      </starts-with>
+		      <ends-with>
+		      	<expression>(;|(?=\})|(?=\)))</expression>
+		      	<capture number="1" name="punctuation.terminator.rule.less"/>
+		      </ends-with>
+		      <subzones>
+		      	<include collection="property-value"/>
+		      </subzones>
+		  </zone>
+		  <zone name="variable.style.less">
+		    	<expression>(@)(?!important)([a-zA-Z0-9_-]+)</expression>
+		    	<capture number="1" name="punctuation.definition.variable.sass"/>
+		    	<capture number="2" name="variable.property-name.sass"/>
+		  </zone>
+		</collection>
+		
+		<collection name="mixin">
+			<zone name="mixin.less">
+				<starts-with>
+				  <expression>(\.)([a-zA-Z0-9_-]+)</expression>
+				  <capture number="1" name="punctuation.definition.mixin.less"/>
+				  <capture number="2" name="mixin.name.less"/>
+				  <capture number="3" name="punctuation.definition.begin"/>
+				</starts-with>
+				<ends-with>
+				  <expression>;</expression>
+				  <capture number="1" name="punctuation.terminator.rule.less"/>
+				</ends-with>
+				
+				<subzones>
+					<zone name="mixin.arguments">
+						<starts-with>
+							<expression>\(</expression>
+							<capture number="0" name="punctuation.definition.begin"/>
+						</starts-with>
+						<ends-with>
+							<expression>\)(?=;)</expression>
+							<capture number="0" name="punctuation.definition.end"/>
+						</ends-with>
+					</zone>
+				</subzones>
+			</zone>
+		</collection>
+		<collection name="mixin-def">
+			<zone name="mixin.definition.style.less">
+				<starts-with>
+					<expression>(^\.)([a-zA-Z0-9_-]+)</expression>
+				</starts-with>
+				<ends-with>(?=\{)</ends-with>
+				<subzones>
+				  <zone name="mixin.arguments">
+				  	<starts-with>
+				  		<expression>\(</expression>
+				  		<capture number="0" name="punctuation.definition.begin"/>
+				  	</starts-with>
+				  	<ends-with>
+				  		<expression>\)</expression>
+				  		<capture number="0" name="punctuation.definition.end"/>
+				  	</ends-with>
+				  	<subzones>
+				  		<zone name="punctuation.separator">
+				  			<expression>,</expression>
+				  		</zone>
+				  		<include collection="property-value"/>
+				  		<include collection="variables"/>
+				  	</subzones>
+				  </zone>
+					<include collection="selectors"/>
+					<include collection="properties"/>
+				</subzones>
+			</zone>
+		</collection>
+	</library>
+</syntax>

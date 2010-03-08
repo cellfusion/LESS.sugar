@@ -1,0 +1,47 @@
+/*
+	@theme LESS Placeholder
+	@placeholder less
+*/
+
+@base {
+	color: #000;
+	background-color: #fff;
+}
+
+less {
+	spell-check: disabled;
+}
+
+less.selector, variable.definition.style.less > property-name {
+	color: #3a77bf;
+}
+
+less > property-name, mixin.less > property-name {
+	color: #d4430d;
+}
+
+less > property-assigner, mixin.less > property-assigner {
+	color: #3a77bf;
+}
+
+less > property-value, mixin.less > property-value, variable.style.less > property-name {
+	color: #43a202;
+}
+
+less.at-rule string {
+	color: #474747;
+}
+
+keyword.important.less {
+	font-weight: bold;
+	color: #6700b9;
+	width: 12px;
+}
+
+mixin.definition.less {
+	color: #3a77bf;
+}
+
+mixin.less, mixin.less > punctuation {
+	color: #d4430d;
+}

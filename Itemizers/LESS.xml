@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itemizer>
+
+	<recipe name="less.at-rule.collection">
+		<selector>at-rule.less:capture(name)</selector>
+		<subrecipes>
+			<include-root-recipes/>
+		</subrecipes>
+	</recipe>
+
+	<recipe name="less.style">
+		<start-selector>style.less > selector.less:capture(name)</start-selector>
+		<end-selector>style.less</end-selector>
+		<subrecipes>
+			<include-root-recipes/>
+		</subrecipes>
+	</recipe>
+	
+	<recipe name="less.variable">
+		<selector>variable.definition.less:capture(name)</selector>
+	</recipe>
+	
+	<recipe name="less.mixin.collection">
+		<selector>mixin.definition.less:capture(name)</selector>
+		<subrecipes>
+			<include-root-recipes/>
+		</subrecipes>
+	</recipe>
+
+	<recipe name="less.comment">
+		<class>ESCommentItem</class>
+		<selector>comment.less</selector>
+	</recipe>
+	
+</itemizer>

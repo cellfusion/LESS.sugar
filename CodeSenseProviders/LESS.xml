@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codesense>
+
+	<provider>
+		<selector>less > property-name:capture(name) + property-value - punctuation.separator</selector>
+		<completions>com.less.property.${name}</completions>
+		<complete-match>[a-zA-Z0-9-]*</complete-match>
+		
+		<require-suffix>[^:]|</require-suffix>
+	</provider>
+
+	<provider>
+		<selector>style.less, property-list.less > property-name, style.less > property-value punctuation.separator</selector>
+		<completions>com.less.properties</completions>
+		<complete-match capture="2">(^)\s*([a-zA-Z0-9-]*)</complete-match>
+	</provider>
+
+	<provider>
+		<selector>style.less, style.less > property-name, style.less > property-value punctuation.separator</selector>
+		<completions>com.less.browser-specific-properties</completions>
+		<complete-match capture="2">(^)\s*([a-zA-Z0-9-]+)</complete-match>
+	</provider>
+	
+</codesense>

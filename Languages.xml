@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings>
+
+	<language id="text.less">
+		
+		<!-- Note: root-zone will be deprecated in the next beta and replaced by syntax-name -->
+		<root-zone>styling.less</root-zone>
+		<name>LESS</name>
+		<detectors>
+			<extension>less</extension>
+		</detectors>
+		
+		<default-extension>less</default-extension>
+		
+	</language>
+	
+	<meta>
+		<name>LESS</name>
+		<author>Joshua Hawxwell</author>
+		<download format="git">git://github.com/hawx/LESS.sugar.git</download>
+		<url>http://github.com/hawx/LESS.sugar</url>
+	</meta>
+	
+</settings>

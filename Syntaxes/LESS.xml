@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <syntax name="styling.less">
 	<zones>
-	  <include collection="variables"/>
-	  <include collection="mixin-def"/>
+	  <include collection="variable-def"/>
+	  <!--<include collection="mixin-def"/>-->
 		<zone name="itemize.group-start.comment.block.less">
 			<starts-with>/\*\s+@group\s</starts-with>
 			<ends-with>\*/</ends-with>
@@ -96,26 +96,30 @@
 			</subzones>
 		</zone>
 
-		<include collection="selector"/>
-		
-		<zone name="property-list.block.less">
-			<starts-with>
-				<expression>\{</expression>
-				<capture number="0" name="punctuation.begin"/>
-			</starts-with>
-			<ends-with>
-				<expression>\}</expression>
-				<capture number="0" name="punctuation.end"/>
-			</ends-with>
-			<subzones>
-				<include collection="comments"/>
-				<include collection="mixin"/>
-				<include collection="properties"/>
-				<include collection="variables"/>
-			</subzones>
-		</zone>
+		<include collection="block"/>
 	</zones>
 	<library>
+		
+		<collection name="block">
+			<zone name="property-list.block.less">
+				<starts-with>
+					<expression>(.+)\{</expression>
+					<capture number="0" name="punctuation.begin"/>
+					<capture number="1" name="punctuation.definition.mixin.less"/>
+				</starts-with>
+				<ends-with>
+					<expression>\}</expression>
+					<capture number="0" name="punctuation.end"/>
+				</ends-with>
+				<subzones>
+					<include collection="comments"/>
+					<include collection="mixin"/>
+					<include collection="variable-def"/>
+					<include collection="properties"/>
+					<include collection="block" />
+				</subzones>
+			</zone>
+		</collection>
 	
 	  <collection name="selector">
 	    <zone name="selector.less">
@@ -130,11 +134,12 @@
 		<collection name="properties">
 		  <include collection="property-name"/>
 		  <include collection="property-value"/>
+		  <include collection="variables"/>
 		</collection>
 		<collection name="property-name">
 			<zone name="property-name">
 				<starts-with>
-					<expression>(?=[a-zA-Z-])</expression>
+					<expression>(?=[a-zA-Z\-])</expression>
 				</starts-with>
 				<ends-with>
 					<expression>(?=\s*:)</expression>
@@ -255,6 +260,12 @@
 		
 		<!-- LESS Only Stuff -->
 		<collection name="variables">
+		  <zone name="variable.style.less">
+		    	<expression>(@)(?!important)([a-zA-Z0-9_-]+)</expression>
+		  </zone>
+		</collection>
+		
+		<collection name="variable-def">
 		  <zone name="variable.definition.style.less">
 		      <starts-with>
 		      	<expression>(@)([a-zA-Z0-9_-]+(:))</expression>
@@ -269,19 +280,16 @@
 		      	<include collection="property-value"/>
 		      </subzones>
 		  </zone>
-		  <zone name="variable.style.less">
-		    	<expression>(@)(?!important)([a-zA-Z0-9_-]+)</expression>
-		    	<capture number="1" name="punctuation.definition.variable.sass"/>
-		    	<capture number="2" name="variable.property-name.sass"/>
-		  </zone>
 		</collection>
 		
 		<collection name="mixin">
 			<zone name="mixin.less">
 				<starts-with>
-				  <expression>(\.)([a-zA-Z0-9_-]+)</expression>
+				  <expression>([\.\#][a-zA-Z0-9_\-\>]+)</expression>
+				<!--
 				  <capture number="1" name="punctuation.definition.mixin.less"/>
 				  <capture number="2" name="mixin.name.less"/>
+				-->
 				  <capture number="3" name="punctuation.definition.begin"/>
 				</starts-with>
 				<ends-with>
@@ -303,10 +311,11 @@
 				</subzones>
 			</zone>
 		</collection>
+		
 		<collection name="mixin-def">
 			<zone name="mixin.definition.style.less">
 				<starts-with>
-					<expression>(^\.)([a-zA-Z0-9_-]+)</expression>
+					<expression>(^\.\#)([a-zA-Z0-9_-]+)</expression>
 				</starts-with>
 				<ends-with>(?=\{)</ends-with>
 				<subzones>

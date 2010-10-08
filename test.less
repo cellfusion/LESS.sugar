@@ -1,45 +1,101 @@
-@brand_color: #4D926F;
+/* Variables */
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
 
-#header {
-  color: @brand_color;
+#header { color: @light-blue; }
+
+/* Mixins */
+.bordered {
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
 }
 
-h2 {
-  color: @brand_color;
+#menu a {
+  color: #111;
+  .bordered;
 }
 
-@the-border: 1px;
-@base-color: #111;
-
-#header {
-  color: @base-color * 3;
-  border-left: @the-border;
-  border-right: @the-border * 2;
-}
-
-#footer { 
-  color: (@base-color + #111) * 1.5;
-}
-
-.rounded_corners (@radius: 5px) {
-  -moz-border-radius: @radius;
-  -webkit-border-radius: @radius;
-  border-radius: @radius;
-}
-
-#header {
-  .rounded_corners;
-}
-
-#footer {
-  .rounded_corners(10px);
-}
-
-
-#header {
+.post a {
   color: red;
-  a {
-    font-weight: bold;
-    text-decoration: none;
+  .bordered;
+}
+
+/* Nested rules */
+#header {
+  color: black;
+
+  .navigation {
+    font-size: 12px;
+  }
+  .logo {
+    width: 300px;
+    :hover { text-decoration: none }
   }
 }
+
+/* Operations */
+@base: 5%;
+@filler: @base * 2;
+@other: @base + @filler;
+
+.operations {
+  color: #888 / 4;
+  background-color: @base-color + #111;
+  height: 100% / 2 + @filler;
+}
+
+/* Namespaces & Accessors */
+#bundle {
+  .button {
+    display: block;
+    border: 1px solid black;
+    background-color: grey;
+    :hover { background-color: white }
+  }
+  .tab {
+  	float: left;
+  }
+  .citation {
+  	display: none;
+  }
+}
+
+#header a {
+  color: orange;
+  #bundle > .button;
+}
+
+#defaults {
+  @width: 960px;
+  @color: black;
+}
+
+.article { color: #294366; }
+
+.comment {
+  width: #defaults[@width];
+  color: .article['color']; 
+}
+
+
+/* Scope */
+@var: red;
+
+#page {
+  @var: white;
+  #header {
+    color: @var; // white
+  }
+}
+
+/* Comments */
+/* One hell of a comment */
+@var: red;
+
+// Get in line!
+@var: white;
+
+
+/* Importing */
+@import "library";
+@import "typo.css";

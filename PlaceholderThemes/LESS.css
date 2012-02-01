@@ -12,36 +12,45 @@ less {
 	spell-check: disabled;
 }
 
-less.selector, variable.definition.style.less > property-name {
-	color: #3a77bf;
+variable.definition.name {
+	color: #008000;
+}
+variable.definition.value {
+	color: #0000FF;
+}
+variable.reference {
+	color: #800000;
+}
+variable.referenceString {
+	font-weight: bold;	
 }
 
-less > property-name, mixin.less > property-name {
-	color: #d4430d;
+selector.definition.name {
+	color: #4881C3;
+}
+selector.definition.value {
+	color: #0000FF;
+}
+selector.reference.name {
+	color: #FF0000;
+}
+selector.reference.arguments {
+	color: #00FF00;
 }
 
-less > property-assigner, mixin.less > property-assigner {
-	color: #3a77bf;
+function.name {
+	color: #00FFFF;
 }
 
-less > property-value, mixin.less > property-value, variable.style.less > property-name {
-	color: #43a202;
+property.name {
+	color: #D75220;
 }
 
-less.at-rule string {
-	color: #474747;
+literal.string,
+literal.numeric {
+	color: #54AA19;
 }
 
-keyword.important.less {
-	font-weight: bold;
-	color: #6700b9;
-	width: 12px;
-}
-
-mixin.definition.less {
-	color: #3a77bf;
-}
-
-mixin.less, mixin.less > punctuation {
-	color: #d6cb58;
+comments {
+	color: #808080;
 }

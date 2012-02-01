@@ -16,7 +16,7 @@ variable.definition.name {
 	color: #008000;
 }
 variable.definition.value {
-	color: #0000FF;
+	
 }
 variable.reference {
 	color: #800000;
@@ -32,7 +32,7 @@ selector.definition.value {
 	color: #0000FF;
 }
 selector.reference.name {
-	color: #FF0000;
+	color: #4881C3;
 }
 selector.reference.arguments {
 	color: #00FF00;
@@ -46,11 +46,14 @@ property.name {
 	color: #D75220;
 }
 
-literal.string,
-literal.numeric {
+literal {
 	color: #54AA19;
 }
 
 comments {
 	color: #808080;
+}
+
+delimit {
+	color: #000000;
 }

@@ -47,7 +47,7 @@
   word-wrap: break-word;
 }
 
-pre { .wrap }
+pre { .wrap; }
 
 
 /* Pattern-matching and Guard expressions */
@@ -77,10 +77,16 @@ pre { .wrap }
   }
 }
 
-#header        { color: black;
-  .navigation  { font-size: 12px }
-  .logo        { width: 300px;
-    &:hover    { text-decoration: none }
+#header {
+  color: black;
+  .navigation {
+    font-size: 12px;
+  }
+  .logo {
+    width: 300px;
+    &:hover {
+  	  text-decoration: none;
+  	}
   }
 }
 
@@ -150,7 +156,9 @@ percentage(0.5);
     display: block;
     border: 1px solid black;
     background-color: grey;
-    :hover { background-color: white }
+    :hover {
+      background-color: white;
+    }
   }
   .tab {
   	float: left;
@@ -183,10 +191,10 @@ percentage(0.5);
 
 /* Comments */
 /* Hello, I'm a CSS-style comment */
-.class { color: black }
+.class { color: black; }
 
 // Hi, I'm a silent comment, I won't show up in your CSS
-.class { color: white }
+.class { color: white; }
 
 
 /* Importing */

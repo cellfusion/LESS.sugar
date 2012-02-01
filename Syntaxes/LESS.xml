@@ -14,9 +14,7 @@
 				<capture number="2" name="variable.definition.value">
 					<subzones>
 						<include collection="variable.reference" />
-						<include collection="literal.string" />
-						<include collection="literal.numeric" />
-						<include collection="literal.color" />
+						<include collection="literal" />
 					</subzones>
 				</capture>
 			</zone>
@@ -43,10 +41,11 @@
 					<expression>}</expression>
 				</ends-with>
 				<subzones>
-					<include collection="selector.definition" />
+					<include collection="comment" />
 					<include collection="property" />
+					<include collection="selector.definition" />
 					<include collection="variable.definition" />
-					<include collection="selector.reference" />
+					<include collection="selector.reference" />				
 				</subzones>
 			</zone>
 		</collection>
@@ -61,15 +60,13 @@
 		
 		<collection name="property">
 			<zone name="property">
-				<expression>(.*?):(.*?);</expression>
+				<expression>([^{]*?):(.*?);</expression>
 				<capture number="1" name="property.name"/>
 				<capture number="2" name="property.value">
 					<subzones>
 						<include collection="function" />
 						<include collection="variable.reference" />
-						<include collection="literal.string" />
-						<include collection="literal.numeric" />
-						<include collection="literal.color" />
+						<include collection="literal" />
 					</subzones>
 				</capture>
 			</zone>
@@ -83,9 +80,7 @@
 					<subzones>
 						<include collection="function" />
 						<include collection="variable.reference" />
-						<include collection="literal.string" />
-						<include collection="literal.numeric" />
-						<include collection="literal.color" />
+						<include collection="literal" />
 					</subzones>
 				</capture>
 			</zone>
@@ -110,6 +105,25 @@
 			</zone>
 		</collection>
 		
+		<collection name="literal">
+			<zone name="literal">
+				<expression>(.*)</expression>
+				<subzones>
+					<include collection="literal.string" />
+					<zone name="literal.numeric">
+						<expression>\-?\d*(\.\d*)?(%|px|em)?</expression>
+					</zone>
+					<zone name="literal.color">
+						<expression>#([0-9a-zA-Z]*)</expression>
+					</zone>
+					<zone name="delimiter">
+						<expression>[\+\-\/\*]</expression>
+					</zone>
+				</subzones>
+			</zone>
+			
+		</collection>
+		
 		<collection name="literal.string">
 			<zone name="literal.string.singleQuote">
 				<starts-with>
@@ -132,18 +146,6 @@
 				<subzones>
 					<include collection="variable.referenceString" />
 				</subzones>
-			</zone>
-		</collection>
-		
-		<collection name="literal.numeric">
-			<zone name="literal.numeric">
-				<expression>\-?\d*?</expression>
-			</zone>
-		</collection>
-		
-		<collection name="literal.color">
-			<zone name="literal.color">
-				<expression>#(\w*?)</expression>
 			</zone>
 		</collection>
 	</library>

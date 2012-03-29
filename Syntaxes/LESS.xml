@@ -103,7 +103,7 @@
 		<collection name="block">
 			<zone name="property-list.block.less">
 				<starts-with>
-					<expression>(.+)\{</expression>
+					<expression>(.+)\s\{</expression>
 					<capture number="0" name="punctuation.begin"/>
 					<capture number="1" name="punctuation.definition.mixin.less"/>
 				</starts-with>

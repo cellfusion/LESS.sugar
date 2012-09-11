@@ -16,7 +16,7 @@
   .bordered;
 }
  
-.post a {
+.post a > .button {
   color: red;
   .bordered;
 }
@@ -24,13 +24,13 @@
  
 /* Parametric Mixins */
 .border-radius (@radius: 5px) {
-  border-radius: @radius;
+  border-radius: @radius; // comment
   -moz-border-radius: @radius;
   -webkit-border-radius: @radius;
 }
  
 #header {
-  .border-radius(4px);
+  .border-radius(4px); //comment
 }
 .button {
   .border-radius(6px);

@@ -24,12 +24,29 @@ less > property-assigner, mixin.less > property-assigner {
 	color: #3a77bf;
 }
 
-less > property-value, mixin.less > property-value, variable.style.less > property-name {
+less > property-value, mixin.less > property-value {
 	color: #43a202;
 }
 
+variable.style.less > property-name {
+	color: #43a202;
+}
+punctuation.definition.variable.less {
+	color: #3a77bf;
+}
+variable.definition.style.less {
+/* 	color: #ff0000; */
+}
+
+punctuation.separator.key-value.less {
+	color: #000000;
+}
+punctuation.terminator.rule.less {
+	color: #000000;
+}
+
 less.at-rule string {
-	color: #474747;
+/* 	color: #474747; */
 }
 
 keyword.important.less {
@@ -38,10 +55,18 @@ keyword.important.less {
 	width: 12px;
 }
 
+
 mixin.definition.less {
 	color: #3a77bf;
 }
+mixin.arguments {
+	color: #000000;
+}
+mixin.less {
+/* 	color: #d6cb58; */
+}
 
-mixin.less, mixin.less > punctuation {
-	color: #d6cb58;
+string.quoted.double,string.quoted.single {
+	color: #da65bb;
+	background: #ffffea;
 }

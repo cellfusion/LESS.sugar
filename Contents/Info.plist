@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleName</key>
-	<string>LESS.sugar</string>
+	<string>cellfusion-LESS.sugar</string>
 	<key>CFBundleIdentifier</key>
-	<string>jp.cellfusion.LESSSugar</string>
+	<string>jp.cellfusion.less</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleInfoDictionaryVersion</key>

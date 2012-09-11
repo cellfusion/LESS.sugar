@@ -2,13 +2,14 @@
 
 <settings>
 
-	<language id="text.less">
+	<language id="jp.cellfusion.less">
 		<name>LESS</name>
-		<root-zone>Espresso.Syntax.LESS</root-zone>
+		<root-zone>language-root.less</root-zone>
 		
 		<detectors>
-			<extension casesensitive="false">less</extension>
+			<extension casesensitive="true">less</extension>
 		</detectors>
+		<default-extension>less</default-extension>
 	</language>
 	
 	<meta>

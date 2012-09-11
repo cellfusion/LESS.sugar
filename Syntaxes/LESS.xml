@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
-<syntax name="Espresso.Syntax.LESS">
+<syntax name="language-root.less">
 	<zones>
+        
 		<include collection="comment" />
 		<include collection="function" />
 		<include collection="variable.definition" />

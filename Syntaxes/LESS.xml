@@ -4,11 +4,34 @@
         
 		<include collection="comment" />
 		<include collection="function" />
+		<include collection="block" />
 		<include collection="variable.definition" />
-		<include collection="selector.definition" />
-        <include collection="mixin.definition" />
 	</zones>
 	<library>
+		<collection name="block">
+			<zone name="block">
+				<starts-with>
+					<expression>^([^@]*)\s?({)</expression>
+					<capture number="1" name="block.name">
+						<subzones>
+							<include collection="selector.definition" />
+						</subzones>
+					</capture>
+                    <capture number="2" name="brace.curly.open"/>
+				</starts-with>
+				<ends-with>
+					<expression>}</expression>
+                    <capture number="0" name="brace.curly.close"/>
+				</ends-with>
+				<subzones>
+					<include collection="block" />
+					<include collection="comment" />
+					<include collection="property" />
+					<include collection="variable.definition" />
+				</subzones>
+			</zone>
+		</collection>
+	
 		<collection name="variable.definition">
 			<zone name="variable.definition">
 				<expression>(@.*?):(.*?);</expression>
@@ -40,10 +63,17 @@
 			</zone>
 		</collection>
 		
+		<collection name="selector.definition">
+			<zone name="selector.definition">
+				<expression>([\.\#a-z\:].*)\s</expression>
+				<capture number="1" name="selector.definition.name"/>
+			</zone>
+		</collection>
+		
         <collection name="mixin.definition">
             <zone name="mixin.parametric">
 				<starts-with>
-					<expression>^(\..*?)\s?(\((.*?)\))\s?({)</expression>
+					<expression>^([\.\#].*?)\s?(\((.*?)\))\s?({)</expression>
 					<capture number="1" name="mixin.definition.name"/>
 					<capture number="3" name="mixin.definition.arguments">
                         <include collection="arguments.definition" />
@@ -64,7 +94,7 @@
 			</zone>
             <zone name="mixin">
 				<starts-with>
-					<expression>^(\..*?)\s?({)</expression>
+					<expression>^([\.\#].*?)\s?({)</expression>
 					<capture number="1" name="mixin.definition.name"/>
                     <capture number="2" name="brace.curly.open"/>
 				</starts-with>
@@ -84,32 +114,11 @@
         
         <collection name="mixin.reference">
 			<zone name="mixin.reference">
-				<expression>(\..*?)(\((.*?)\))?;</expression>
+				<expression>([\.\#].*?)(\((.*?)\))?;</expression>
 				<capture number="1" name="mixin.reference.name"/>
 				<capture number="3" name="mixin.reference.arguments">
                     <include collection="literal" />
                 </capture>
-			</zone>
-		</collection>
-        
-		<collection name="selector.definition">
-			<zone name="selector.definition">
-				<starts-with>
-					<expression>([\.|#]?[\w\-\s]*?)\s?({)</expression>
-					<capture number="1" name="selector.definition.name"/>
-                    <capture number="2" name="brace.curly.open"/>
-				</starts-with>
-				<ends-with>
-					<expression>(})</expression>
-                    <capture number="1" name="brace.curly.close"/>
-				</ends-with>
-				<subzones>
-					<include collection="comment" />
-					<include collection="property" />
-					<include collection="selector.definition" />
-					<include collection="variable.definition" />
-					<include collection="mixin.reference" />
-				</subzones>
 			</zone>
 		</collection>
         

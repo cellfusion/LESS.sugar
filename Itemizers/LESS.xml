@@ -6,17 +6,18 @@
 		<selector>comment</selector>
 	</recipe>
 	
-	<recipe name="variable">
-		<selector>variable.definition.name:capture(name)</selector>
-	</recipe>
-	
 	<recipe name="selector">
-        <start-selector>selector.definition:capture(name) + brace.curly.open</start-selector>
+		<start-selector>block.name:capture(name) + brace.curly.open</start-selector>
         <end-selector>brace.curly.close</end-selector>
 		<subrecipes>
 			<include-root-recipes/>
 		</subrecipes>
 	</recipe>
+	
+	<recipe name="variable">
+		<selector>variable.definition.name:capture(name)</selector>
+	</recipe>
+
     
     <recipe name="mixin">
         <start-selector>mixin.definition:capture(name) + brace.curly.open</start-selector>

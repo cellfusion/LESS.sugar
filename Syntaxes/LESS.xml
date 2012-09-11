@@ -55,9 +55,12 @@
 			<zone name="selector.reference">
 				<expression>([\.|#]?.*?)(\((.*?)\))?;</expression>
 				<capture number="1" name="selector.reference.name"/>
-				<capture number="3" name="selector.reference.arguments"/>
+				<capture number="3" name="selector.reference.arguments">
+                    <include collection="literal" />
+                </capture>
 			</zone>
 		</collection>
+        
 		
 		<collection name="property">
 			<zone name="property">
@@ -75,7 +78,7 @@
 		
 		<collection name="function">
 			<zone name="function">
-				<expression>(\w*?)\s?\((.*?)\)</expression>
+				<expression>(\w*?)\s?\((.*?)?\)</expression>
 				<capture number="1" name="function.name"/>
 				<capture number="2" name="function.arguments">
 					<subzones>
@@ -107,22 +110,16 @@
 		</collection>
 		
 		<collection name="literal">
-			<zone name="literal">
-				<expression>(.*)</expression>
-				<subzones>
-					<include collection="literal.string" />
-					<zone name="literal.numeric">
-						<expression>\-?\d*(\.\d*)?(%|px|em)?</expression>
-					</zone>
-					<zone name="literal.color">
-						<expression>#([0-9a-zA-Z]*)</expression>
-					</zone>
-					<zone name="delimiter">
-						<expression>[\+\-\/\*]</expression>
-					</zone>
-				</subzones>
-			</zone>
-			
+            <zone name="literal.numeric">
+                <expression>\d?\.?\d?(%|px|em)?</expression>
+            </zone>
+            <zone name="literal.color">
+                <expression>#([0-9a-zA-Z]*)</expression>
+            </zone>
+            <zone name="literal.definition">
+                <expression>(dotted|black|solid|block)</expression>
+            </zone>
+            <include collection="literal.string" />
 		</collection>
 		
 		<collection name="literal.string">

@@ -13,10 +13,10 @@ less {
 }
 
 variable.definition.name {
-	color: #008000;
+	color: #a24dba;
 }
 variable.definition.value {
-	
+	color: #000000;
 }
 variable.reference {
 	color: #800000;
@@ -26,7 +26,7 @@ variable.referenceString {
 }
 
 selector.definition.name {
-	color: #4881C3;
+	color: #000000;
 }
 selector.definition.value {
 	color: #0000FF;
@@ -35,7 +35,7 @@ selector.reference.name {
 	color: #4881C3;
 }
 selector.reference.arguments {
-	color: #00FF00;
+	
 }
 
 function.name {
@@ -43,17 +43,26 @@ function.name {
 }
 
 property.name {
-	color: #D75220;
+	color: #005ad3;
 }
 
 literal {
-	color: #54AA19;
+	
+}
+literal.string {
+	color: #f854a0;
+	background: #fffee9;
+}
+literal.numeric {
+	color: #ef4900;
+}
+literal.color {
+	color: #ec5277;
+}
+literal.definition {
+	color: #84a965;
 }
 
 comments {
 	color: #808080;
-}
-
-delimit {
-	color: #000000;
 }

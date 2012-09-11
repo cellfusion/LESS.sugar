@@ -17,9 +17,9 @@
 	
 	<meta>
 		<name>LESS</name>
-		<author>Joshua Hawxwell</author>
-		<download format="git">git://github.com/hawx/LESS.sugar.git</download>
-		<url>http://github.com/hawx/LESS.sugar</url>
+		<author>cellfusion:Mk-10</author>
+		<download format="git">git://github.com/cellfusion/LESS.sugar.git</download>
+		<url>http://github.com/cellfusion/LESS.sugar</url>
 	</meta>
 	
 </settings>

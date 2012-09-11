@@ -108,7 +108,7 @@
 		<collection name="block">
 			<zone name="property-list.block.less">
 				<starts-with>
-					<expression>(.+)\{</expression>
+					<expression>([^@]+)\{</expression>
 					<capture number="0" name="punctuation.begin"/>
 					<capture number="1" name="punctuation.definition.mixin.less"/>
 				</starts-with>
@@ -117,6 +117,7 @@
 					<capture number="0" name="punctuation.end"/>
 				</ends-with>
 				<subzones>
+
 					<include collection="comments"/>
 					<include collection="mixin"/>
 					<include collection="variable-def"/>

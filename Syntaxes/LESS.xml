@@ -34,12 +34,14 @@
 		<collection name="selector.definition">
 			<zone name="selector.definition">
 				<starts-with>
-					<expression>([\.|#]?.*?)\s?(\((.*?)\))?\s?{</expression>
+					<expression>([\.|#]?.*?)\s?(\((.*?)\))?\s?({)</expression>
 					<capture number="1" name="selector.definition.name"/>
 					<capture number="3" name="selector.definition.arguments"/>
+                    <capture number="4" name="brace.curly.open"/>
 				</starts-with>
 				<ends-with>
-					<expression>}</expression>
+					<expression>(})</expression>
+                    <capture number="1" name="brace.curly.close"/>
 				</ends-with>
 				<subzones>
 					<include collection="comment" />

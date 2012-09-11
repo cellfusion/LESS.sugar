@@ -11,7 +11,8 @@
 	</recipe>
 	
 	<recipe name="selector">
-		<selector>selector.definition.name:capture(name)</selector>
+        <start-selector>selector.definition:capture(name) + brace.curly.open</start-selector>
+        <end-selector>brace.curly.close</end-selector>
 		<subrecipes>
 			<include-root-recipes/>
 		</subrecipes>

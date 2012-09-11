@@ -38,6 +38,20 @@ selector.reference.arguments {
 	
 }
 
+mixin.definition.name {
+	color: #ff0000;
+}
+mixin.reference.name {
+	color: #ff0000;
+}
+
+arguments.name {
+	color: #00ff00;
+}
+arguments.default {
+	
+}
+
 function.name {
 	color: #00FFFF;
 }

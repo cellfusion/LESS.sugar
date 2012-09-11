@@ -6,6 +6,7 @@
 		<include collection="function" />
 		<include collection="variable.definition" />
 		<include collection="selector.definition" />
+        <include collection="mixin.definition" />
 	</zones>
 	<library>
 		<collection name="variable.definition">
@@ -30,13 +31,23 @@
 				<expression>@{[\w\-]*}</expression>
 			</zone>
 		</collection>
+        
+        <collection name="arguments.definition">
+			<zone name="arguments">
+				<expression>@(\w.*?):\s?(.*?)?</expression>
+                <capture number="1" name="arguments.name"/>
+                <capture number="2" name="arguments.default"/>
+			</zone>
+		</collection>
 		
-		<collection name="selector.definition">
-			<zone name="selector.definition">
+        <collection name="mixin.definition">
+            <zone name="mixin.parametric">
 				<starts-with>
-					<expression>([\.|#]?.*?)\s?(\((.*?)\))?\s?({)</expression>
-					<capture number="1" name="selector.definition.name"/>
-					<capture number="3" name="selector.definition.arguments"/>
+					<expression>^(\..*?)\s?(\((.*?)\))\s?({)</expression>
+					<capture number="1" name="mixin.definition.name"/>
+					<capture number="3" name="mixin.definition.arguments">
+                        <include collection="arguments.definition" />
+                    </capture>
                     <capture number="4" name="brace.curly.open"/>
 				</starts-with>
 				<ends-with>
@@ -48,18 +59,57 @@
 					<include collection="property" />
 					<include collection="selector.definition" />
 					<include collection="variable.definition" />
-					<include collection="selector.reference" />				
+					<include collection="mixin.reference" />
 				</subzones>
 			</zone>
-		</collection>
-		
-		<collection name="selector.reference">
-			<zone name="selector.reference">
-				<expression>([\.|#]?.*?)(\((.*?)\))?;</expression>
-				<capture number="1" name="selector.reference.name"/>
-				<capture number="3" name="selector.reference.arguments">
+            <zone name="mixin">
+				<starts-with>
+					<expression>^(\..*?)\s?({)</expression>
+					<capture number="1" name="mixin.definition.name"/>
+                    <capture number="2" name="brace.curly.open"/>
+				</starts-with>
+				<ends-with>
+					<expression>(})</expression>
+                    <capture number="1" name="brace.curly.close"/>
+				</ends-with>
+				<subzones>
+					<include collection="comment" />
+					<include collection="property" />
+					<include collection="selector.definition" />
+					<include collection="variable.definition" />
+					<include collection="mixin.reference" />
+				</subzones>
+			</zone>
+        </collection>
+        
+        <collection name="mixin.reference">
+			<zone name="mixin.reference">
+				<expression>(\..*?)(\((.*?)\))?;</expression>
+				<capture number="1" name="mixin.reference.name"/>
+				<capture number="3" name="mixin.reference.arguments">
                     <include collection="literal" />
                 </capture>
+			</zone>
+		</collection>
+        
+		<collection name="selector.definition">
+			<zone name="selector.definition">
+				<starts-with>
+					<expression>([\.|#]?[\w\-\s]*?)\s?({)</expression>
+					<capture number="1" name="selector.definition.name"/>
+                    <capture number="2" name="brace.curly.open"/>
+				</starts-with>
+				<ends-with>
+					<expression>(})</expression>
+                    <capture number="1" name="brace.curly.close"/>
+				</ends-with>
+				<subzones>
+					<include collection="comment" />
+					<include collection="property" />
+					<include collection="selector.definition" />
+					<include collection="variable.definition" />
+					<include collection="mixin.reference" />
+				</subzones>
 			</zone>
 		</collection>
         

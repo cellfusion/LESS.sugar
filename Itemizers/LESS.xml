@@ -17,5 +17,13 @@
 			<include-root-recipes/>
 		</subrecipes>
 	</recipe>
+    
+    <recipe name="mixin">
+        <start-selector>mixin.definition:capture(name) + brace.curly.open</start-selector>
+        <end-selector>brace.curly.close</end-selector>
+		<subrecipes>
+			<include-root-recipes/>
+		</subrecipes>
+	</recipe>
 	
 </itemizer>

@@ -1,101 +1,233 @@
 /* Variables */
 @nice-blue: #5B83AD;
 @light-blue: @nice-blue + #111;
-
+ 
 #header { color: @light-blue; }
-
+ 
+ 
 /* Mixins */
 .bordered {
-  border-top: dotted 1px black;
-  border-bottom: solid 2px black;
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
 }
-
+ 
 #menu a {
-  color: #111;
-  .bordered;
+  color: #111;
+  .bordered;
 }
-
+ 
 .post a {
-  color: red;
-  .bordered;
+  color: red;
+  .bordered;
 }
-
-/* Nested rules */
+ 
+ 
+/* Parametric Mixins */
+.border-radius (@radius: 5px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+ 
 #header {
-  color: black;
-
-  .navigation {
-    font-size: 12px;
-  }
-  .logo {
-    width: 300px;
-    :hover { text-decoration: none }
-  }
+  .border-radius(4px);
 }
-
+.button {
+  .border-radius(6px);
+}
+ 
+#header {
+  .border-radius;
+}
+ 
+.wrap () {
+  text-wrap: wrap;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  word-wrap: break-word;
+}
+ 
+pre { .wrap; }
+ 
+ 
+/* Pattern-matching and Guard expressions */
+ 
+ 
+/* Nested rules */
+#header { color: black; }
+#header .navigation {
+  font-size: 12px;
+}
+#header .logo {
+  width: 300px;
+}
+#header .logo:hover {
+  text-decoration: none;
+}
+ 
+#header {
+  color: black;
+ 
+  .navigation {
+    font-size: 12px;
+  }
+  .logo {
+    width: 300px;
+    &:hover { text-decoration: none; }
+  }
+}
+ 
+#header {
+  color: black;
+  .navigation {
+    font-size: 12px;
+  }
+  .logo {
+    width: 300px;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+ 
+ 
 /* Operations */
 @base: 5%;
 @filler: @base * 2;
 @other: @base + @filler;
-
-.operations {
-  color: #888 / 4;
-  background-color: @base-color + #111;
-  height: 100% / 2 + @filler;
+ 
+#operations {
+  color: #888 / 4;
+  background-color: @base-color + #111;
+  height: 100% / 2 + @filler;
 }
-
-/* Namespaces & Accessors */
+ 
+@var: 1px + 5;
+ 
+#operations2 {
+  width: (@var + 5) * 2;
+ 
+  border: (@width * 2) solid black;
+}
+ 
+ 
+/* Color functions */
+lighten(@color, 10%);
+darken(@color, 10%);
+ 
+saturate(@color, 10%);
+desaturate(@color, 10%);
+ 
+fadein(@color, 10%);
+fadeout(@color, 10%);
+fade(@color, 50%);
+ 
+spin(@color, 10);
+spin(@color, -10);
+ 
+mix(@color1, @color2);
+ 
+@base: #f04615;
+ 
+.class {
+  color: saturate(@base, 5%);
+  background-color: lighten(spin(@base, 8), 25%);
+}
+ 
+hue(@color);
+saturation(@color);
+lightness(@color);
+alpha(@color);
+ 
+hsl(hue(@old), 45%, 90%);
+ 
+@new: hsl(hue(@old), 45%, 90%);
+ 
+ 
+/* Math functions */
+round(1.67);
+ceil(2.4);
+floor(2.6);
+ 
+percentage(0.5);
+ 
+ 
+/* Namespaces */
 #bundle {
-  .button {
-    display: block;
-    border: 1px solid black;
-    background-color: grey;
-    :hover { background-color: white }
-  }
-  .tab {
-  	float: left;
-  }
-  .citation {
-  	display: none;
-  }
+  .button {
+    display: block;
+    border: 1px solid black;
+    background-color: grey;
+    :hover {
+      background-color: white;
+    }
+  }
+  .tab {
+    float: left;
+  }
+  .citation {
+    display: none;
+  }
 }
-
+ 
 #header a {
-  color: orange;
-  #bundle > .button;
+  color: orange;
+  #bundle > .button;
 }
-
-#defaults {
-  @width: 960px;
-  @color: black;
-}
-
-.article { color: #294366; }
-
-.comment {
-  width: #defaults[@width];
-  color: .article['color']; 
-}
-
-
+ 
+ 
 /* Scope */
 @var: red;
-
+ 
 #page {
-  @var: white;
-  #header {
-    color: @var; // white
-  }
+  @var: white;
+  #header {
+    color: @var; // white
+  }
 }
-
+ 
+#footer {
+  color: @var; // red
+}
+ 
+ 
 /* Comments */
-/* One hell of a comment */
-@var: red;
-
-// Get in line!
-@var: white;
-
-
+/* Hello, I'm a CSS-style comment */
+.class { color: black; }
+ 
+// Hi, I'm a silent comment, I won't show up in your CSS
+.class { color: white; }
+ 
+ 
 /* Importing */
-@import "library";
-@import "typo.css";
+@import "lib.less";
+@import "lib";
+@import "lib.css";
+ 
+ 
+/* String interpolation */
+@base-url: "http://assets.fnord.com";
+#interpolation {
+    background-image: url("@{base-url}/images/bg.png");
+}
+ 
+/* Escaping */
+.class {
+  filter: ~"ms:alwaysHasItsOwnSyntax.For.Stuff()";
+}
+ 
+.class {
+  filter: ms:alwaysHasItsOwnSyntax.For.Stuff();
+}
+ 
+ 
+/* Operations */
+@base: 5%;
+@filler: @base * 2;
+@other: @base + @filler;
+ 
+.operations {
+  color: #888 / 4;
+  background-color: @base-color + #111;
+  height: 100% / 2 + @filler;
+}
